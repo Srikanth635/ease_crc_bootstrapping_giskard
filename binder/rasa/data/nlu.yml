@@ -1,0 +1,490 @@
+version: "3.1"
+
+nlu:
+- intent: pick_up
+  examples: |
+    - from the [wash basin]{"entity": "location", "role": "source"} take out the [plate]{"entity": "obj_to_be_picked", "role": "utensil"}.
+    - grasp the handle of the [knife]{"entity": "obj_to_be_picked", "role": "utensil"} firmly.
+    - from the [island area]{"entity": "location", "role": "source"}, snatch the [knife]{"entity": "obj_to_be_picked", "role": "utensil"}.
+    - grab the [cup]{"entity": "obj_to_be_picked", "role": "utensil"}.
+    - you can grasp a [fruit]{"entity": "obj_to_be_picked", "role": "food"}.
+    - go to the [table]{"entity": "location", "role": "source"} and pick up the [tin]{"entity": "obj_to_be_picked", "role": "utensil"} from it.
+    - grab a [spatula]{"entity": "obj_to_be_picked", "role": "utensil"} from the [rack]{"entity": "location", "role": "source"}.
+    - get a slotted [spoon]{"entity": "obj_to_be_picked", "role": "utensil"} from the [cooking pot]{"entity": "location", "role": "source"}.
+    - pick up the [fork]{"entity": "obj_to_be_picked", "role": "utensil"} lying on the [floor]{"entity": "location", "role": "source"}.
+    - can you grab a [fork]{"entity": "obj_to_be_picked", "role": "utensil"} from the [dish washer]{"entity": "location", "role": "source"}?
+    - from the [drawer]{"entity": "location", "role": "source"}, take a [bowl]{"entity": "obj_to_be_picked", "role": "utensil"}.
+    - take hold of the [spatula]{"entity": "obj_to_be_picked", "role": "utensil"} present near the [stove]{"entity": "location", "role": "source"}.
+    - select a [whisker]{"entity": "obj_to_be_picked", "role": "utensil"} from the [drawer]{"entity": "location", "role": "source"}.
+    - take the [can opener]{"entity": "obj_to_be_picked", "role": "utensil"} from the [table]{"entity": "location", "role": "source"}.
+    - can you get hold of the [plate]{"entity": "obj_to_be_picked", "role": "utensil"}?
+    - would you mind picking a [knife]{"entity": "obj_to_be_picked", "role": "utensil"}?
+    - fetch the [cup]{"entity": "obj_to_be_picked", "role": "utensil"} from the [drawer]{"entity": "location", "role": "source"}.
+    - could you fetch the [scissor]{"entity": "obj_to_be_picked", "role": "utensil"} on the [rack]{"entity": "location", "role": "source"}? 
+    - could you grab a [ladle]{"entity": "obj_to_be_picked", "role": "utensil"} from the [sink]{"entity": "location", "role": "source"}?
+    - would you kindly pick up a [peeler]{"entity": "obj_to_be_picked", "role": "utensil"}? 
+    - pick up the [glass]{"entity": "obj_to_be_picked", "role": "utensil"}.
+    - get hold of the [knife]{"entity": "obj_to_be_picked", "role": "utensil"} tightly.
+    - take hold of the [casserole]{"entity": "obj_to_be_picked", "role": "utensil"} from the [stove]{"entity": "location", "role": "source"}.
+    - pick the [bottle]{"entity": "obj_to_be_picked", "role": "utensil"} from the [fridge]{"entity": "location", "role": "source"}.
+    - take the [oil]{"entity": "obj_to_be_picked", "role": "food"} available just by the [stove]{"entity": "location", "role": "source"}.
+    - obtain the baked [bread]{"entity": "obj_to_be_picked", "role": "food"} in the [oven]{"entity": "location", "role": "source"}.
+    - from the [storage container]{"entity": "location", "role": "source"} pick the [vegetables]{"entity": "obj_to_be_picked", "role": "food"}.
+    - can you grab a [sausage]{"entity": "obj_to_be_picked", "role": "food"} from the [plate]{"entity": "location", "role": "source"}?
+    - could you be able to get the [apple]{"entity": "obj_to_be_picked", "role": "food"} located near the [fridge]{"entity": "location", "role": "source"}?
+    - beside the [stove]{"entity": "location", "role": "source"} there is an [orange]{"entity": "obj_to_be_picked", "role": "food"}, could you please grab it.
+    - on top of the [refrigerator]{"entity": "location", "role": "source"} you can find a [potato]{"entity": "obj_to_be_picked", "role": "food"}, try to take it.
+#    - add some examples like with amount like : pick up 2 apples | grab 2 bottles from the fridge
+
+- intent: put_down
+  examples: |
+    - rest the [slotted spoon]{"entity": "obj_to_be_put", "role": "utensil"} on the edge of the [pot]{"entity": "location", "role": "destination"}.
+    - place the [grater]{"entity": "obj_to_be_put", "role": "utensil"} in the [sink]{"entity": "location", "role": "destination"}.
+    - could you stow the [cooking pot]{"entity": "obj_to_be_put", "role": "utensil"} near the [sink]{"entity": "location", "role": "destination"}?
+    - put the [spatula]{"entity": "obj_to_be_put", "role": "utensil"} down on the [plate]{"entity": "location", "role": "destination"}.
+    - ground the [kitchen shears]{"entity": "obj_to_be_put", "role": "utensil"} on the [cutting board]{"entity": "location", "role": "destination"}.
+    - carefully let go of the [knife]{"entity": "obj_to_be_put", "role": "utensil"} into the [wash basin]{"entity": "location", "role": "destination"}.
+    - leave the [cup]{"entity": "obj_to_be_put", "role": "utensil"} on the [table]{"entity": "location", "role": "destination"}.
+    - slowly let the [ladle]{"entity": "obj_to_be_put", "role": "utensil"} fall back into the [pot]{"entity": "location", "role": "destination"}.
+    - deposit the [whisk]{"entity": "obj_to_be_put", "role": "utensil"} into the [obj_to_be_put holder]{"entity": "location", "role": "destination"}.
+    - station the [cup]{"entity": "obj_to_be_put", "role": "utensil"} in the [dish washer]{"entity": "location", "role": "destination"}.
+    - place the [plate]{"entity": "obj_to_be_put", "role": "utensil"} over the [oven]{"entity": "location", "role": "destination"}.
+    - drop the [spoon]{"entity": "obj_to_be_put", "role": "utensil"} on the [plate]{"entity": "location", "role": "destination"}.
+    - would you mind placing the [cup]{"entity": "obj_to_be_put", "role": "utensil"} onto the [saucer]{"entity": "location", "role": "destination"}?
+    - can you leave the [bowl]{"entity": "obj_to_be_put", "role": "utensil"} on the [table]{"entity": "location", "role": "destination"} gently.
+    - could you place the [pan]{"entity": "obj_to_be_put", "role": "utensil"} on the [stove]{"entity": "location", "role": "destination"}?
+    - drop the [chopped vegetables]{"entity": "obj_to_be_put", "role": "food"} into the [cooking pot]{"entity": "location", "role": "destination"}.
+    - set the [lid]{"entity": "obj_to_be_put", "role": "utensil"} on the [cooking pan]{"entity": "location", "role": "destination"}.
+    - stow the [vegetable]{"entity": "obj_to_be_put", "role": "food"} on the [cutting board]{"entity": "location", "role": "destination"}.
+    - can you leave the [milk bottle]{"entity": "obj_to_be_put", "role": "food"} near the [fridge]{"entity": "location", "role": "destination"}?
+    - you can place the [apple]{"entity": "obj_to_be_put", "role": "food"} on the [table]{"entity": "location", "role": "destination"}.
+    - you could deposit the [saltshaker]{"entity": "obj_to_be_put", "role": "utensil"} on the [desk]{"entity": "location", "role": "destination"}.
+
+- intent: drop
+  examples: |
+    - get rid off the [mixer]{"entity": "obj_to_drop", "role": "utensil"}.
+    - let go of the [ladle]{"entity": "obj_to_drop", "role": "utensil"}.
+    - can you drop off the [fork]{"entity": "obj_to_drop", "role": "utensil"}?
+    - drop the [spoon]{"entity": "obj_to_drop", "role": "utensil"} in the [dish washer]{"entity": "location", "role": "destination"}.
+    - release the [bottle]{"entity": "obj_to_drop", "role": "utensil"}.
+    - discard the [fork]{"entity": "obj_to_drop", "role": "utensil"}.
+    - ditch the [bottle]{"entity": "obj_to_drop", "role": "utensil"}.
+    - disengage your hand from the [can opener]{"entity": "obj_to_drop", "role": "utensil"}.
+    - untether your grip from the [grater]{"entity": "obj_to_drop", "role": "utensil"}.
+    - free your hold on the [kitchen shears]{"entity": "obj_to_drop", "role": "utensil"}.
+    - unclasp your fingers from the [peeler]{"entity": "obj_to_drop", "role": "utensil"}.
+    - unhand the [whisk]{"entity": "obj_to_drop", "role": "utensil"}.
+    - dump the [colander]{"entity": "obj_to_drop", "role": "utensil"}.
+
+#- intent: move
+#  examples: |
+#    - could you relocate the [blender]{"entity": "obj_to_be_moved", "role": "utensil"} to the [countertop]{"entity": "location", "role": "destination"}?
+#    - kindly transfer the [cutting board]{"entity": "obj_to_be_moved", "role": "utensil"} to the [kitchen island]{"entity": "location", "role": "destination"}.
+#    - could you shift the [spices]{"entity": "food", "role": "utensil"} to the [spice rack]{"entity": "location", "role": "destination"}?
+#    - please transport the [coffee machine]{"entity": "obj_to_be_moved", "role": "utensil"} to the [kitchen counter]{"entity": "location", "role": "destination"}.
+#    - kindly carry the [orange]{"entity": "food", "role": "utensil"} to the [kitchen island]{"entity": "location", "role": "destination"}.
+#    - could you carry the [vegetables]{"entity": "food", "role": "utensil"} tray to the [refrigerator]{"entity": "location", "role": "destination"}?
+#    - please reposition the [plates]{"entity": "obj_to_be_moved", "role": "utensil"} to the [dishwasher]{"entity": "location", "role": "destination"}.
+#    - on to the [cutting board]{"entity": "location", "role": "destination"} carry the [knife]{"entity": "obj_to_be_moved", "role": "utensil"}.
+#    - please move the [pan]{"entity": "obj_to_be_moved", "role": "utensil"} to the [storage area]{"entity": "location", "role": "destination"}.
+#    - can you carry the [plate]{"entity": "obj_to_be_moved", "role": "utensil"} to the [sink]{"entity": "location", "role": "destination"}?
+#    - carry the [cup]{"entity": "obj_to_be_moved", "role": "utensil"} to the [washbasin]{"entity": "location", "role": "destination"}.
+#    - cart the [bottle]{"entity": "obj_to_be_moved", "role": "utensil"} to the [refrigerator]{"entity": "location", "role": "destination"}.
+#    - carefully lug the [bowl]{"entity": "obj_to_be_moved", "role": "utensil"} towards the [stove]{"entity": "location", "role": "destination"}.
+#    - move it near the [table]{"entity": "location", "role": "destination"}.
+#    - carry the [mug]{"entity": "obj_to_be_moved", "role": "utensil"} over to the [island area]{"entity": "location", "role": "destination"}.
+#    - move the [cutting board]{"entity": "obj_to_be_moved", "role": "utensil"} near to the [dishwasher]{"entity": "location", "role": "destination"}.
+
+- intent: pouring
+  examples: |
+    - pour the simmering [soup]{"entity": "stuff", "role": ""} into the serving [bowls]{"entity": "location", "role": "destination"}.
+    - Pour exactly [1]{"entity": "amount", "role": "quantity"} [cup]{"entity": "amount", "role": "units"} of [water]{"entity": "stuff", "role": ""} into the [saucepan]{"entity": "location", "role": "destination"} and bring it to a boil.
+    - dispense [250]{"entity": "amount", "role": "quantity"} [milliliters]{"entity": "amount", "role": "units"} of [vinegar]{"entity": "stuff", "role": ""} into the [marinade]{"entity": "location", "role": "destination"} for a tangy flavor.
+    - Stream [half a pint]{"entity": "amount", "role": "units"} of [cream]{"entity": "stuff", "role": ""} into the mixing [bowl]{"entity": "location", "role": "destination"} to create a luscious dessert.
+    - Drizzle [2]{"entity": "amount", "role": "quantity"} [tablespoons]{"entity": "amount", "role": "units"} of olive [oil]{"entity": "stuff", "role": ""} over the [vegetables]{"entity": "location", "role": "destination"} before roasting.
+    - Transfer precisely [150]{"entity": "amount", "role": "quantity"} [grams]{"entity": "amount", "role": "units"} of melted [chocolate]{"entity": "stuff", "role": ""} onto the chilled [cake]{"entity": "location", "role": "destination"}.
+    - Release [200]{"entity": "amount", "role": "quantity"} [milliliters]{"entity": "amount", "role": "units"} of [honey]{"entity": "stuff", "role": ""} slowly over the [salad]{"entity": "location", "role": "destination"}.
+    - Splash [50]{"entity": "amount", "role": "quantity"} [milliliters]{"entity": "amount", "role": "units"} of [milk]{"entity": "stuff", "role": ""} into the [coffee]{"entity": "location", "role": "destination"} for a perfect balance.
+    - Pour the hot [coffee]{"entity": "stuff", "role": ""} from the [kettle]{"entity": "location", "role": "source"} into the [mug]{"entity": "location", "role": "destination"}.
+    - Transfer the creamy [sauce]{"entity": "stuff", "role": ""} from the glass [canister]{"entity": "location", "role": "source"} onto the [pasta]{"entity": "location", "role": "destination"} for a delicious coating.
+    - Pour the [batter]{"entity": "stuff", "role": ""} onto the [griddle]{"entity": "location", "role": "destination"}, forming perfect pancakes.
+    - Carefully pour the melted [butter]{"entity": "stuff", "role": ""} on the [popcorn]{"entity": "location", "role": "destination"} for a tasty movie snack.
+    - Drizzle the [honey]{"entity": "stuff", "role": ""} from the [bowl]{"entity": "location", "role": "source"} over the Greek [yogurt]{"entity": "location", "role": "destination"} for a sweet and healthy treat.
+    - Pour the freshly brewed [tea]{"entity": "stuff", "role": ""} into the [teapot]{"entity": "location", "role": "destination"} to keep it warm.
+    - Tip the [bowl]{"entity": "location", "role": "source"} to pour the [sauce]{"entity": "stuff", "role": ""} onto the [crisp greens]{"entity": "location", "role": "destination"}.
+    - Cascade the chocolate [sauce]{"entity": "stuff", "role": ""} over the [ice cream sundae]{"entity": "location", "role": "destination"} for a delightful dessert.
+    - Pour the olive [oil]{"entity": "stuff", "role": ""} from the [bottle]{"entity": "location", "role": "source"} into the [salad]{"entity": "location", "role": "destination"} dressing container for easy mixing.
+    - Transfer [200]{"entity": "amount", "role": "quantity"} [grams]{"entity": "amount", "role": "units"} of the velvety cheese [sauce]{"entity": "stuff", "role": ""} from the [saucepan]{"entity": "location", "role": "source"} onto the baked [macaroni]{"entity": "location", "role": "destination"}.
+    - Drizzle [3]{"entity": "amount", "role": "quantity"} [tablespoons]{"entity": "amount", "role": "units"} of the garlic-infused olive [oil]{"entity": "stuff", "role": ""} from the [skillet]{"entity": "location", "role": "source"} onto the roasted [vegetables]{"entity": "location", "role": "destination"} for added flavor.
+    - Pour exactly [half a cup]{"entity": "amount", "role": "quantity"} of the [lemon vinaigrette]{"entity": "stuff", "role": ""} from the [jar]{"entity": "location", "role": "source"} onto the [salad]{"entity": "location", "role": "destination"} for a refreshing tang.
+    - Tip the [bowl]{"entity": "location", "role": "source"} to release [150]{"entity": "amount", "role": "quantity"} [milliliters]{"entity": "amount", "role": "units"} of the velouté [sauce]{"entity": "stuff", "role": ""} onto the grilled [chicken breast]{"entity": "location", "role": "destination"} for a moist and flavorful coating.
+    - Cascade [250]{"entity": "amount", "role": "quantity"} [grams]{"entity": "amount", "role": "units"} of the [chocolate ganache]{"entity": "stuff", "role": ""} from the [bowl]{"entity": "location", "role": "source"} onto the [cake]{"entity": "location", "role": "destination"} for a decadent dessert.
+    - Transfer [1.5]{"entity": "amount", "role": "quantity"} [cups]{"entity": "amount", "role": "units"} of the [béchamel sauce]{"entity": "stuff", "role": ""} from the [pan]{"entity": "location", "role": "source"} onto the [lasagna]{"entity": "location", "role": "destination"} for a creamy and rich texture.
+    - Release a [quarter cup]{"entity": "amount", "role": "units"} of the homemade [pesto]{"entity": "stuff", "role": ""} from the [jar]{"entity": "location", "role": "source"} onto the cooked [pasta]{"entity": "location", "role": "destination"}.
+    - Transfer [1]{"entity": "amount", "role": "quantity"} [cup]{"entity": "amount", "role": "units"} of [soup]{"entity": "stuff", "role": ""} from the [pan]{"entity": "location", "role": "source"} onto the [lasagna]{"entity": "location", "role": "destination"}.
+    - Sprinkle a [pinch]{"entity": "amount", "role": "units"} of [salt]{"entity": "stuff", "role": ""} onto the sliced [tomatoes]{"entity": "location", "role": "destination"}.
+    - Squeeze fresh [lemon juice]{"entity": "stuff", "role": ""} over the grilled [chicken]{"entity": "location", "role": "destination"} for a zesty kick.
+    - Dust a [dash]{"entity": "amount", "role": "units"} of powdered [sugar]{"entity": "stuff", "role": ""} onto the warm [pancakes]{"entity": "location", "role": "destination"} for a sweet finishing touch.
+    - Scatter chopped [herbs]{"entity": "stuff", "role": ""} on the cooking [pan]{"entity": "location", "role": "destination"} to elevate their aroma.
+    - pour [3]{"entity": "amount", "role": "quantity"} [liters]{"entity": "amount", "role": "units"} of [water]{"entity": "stuff", "role": ""} from the [bottle]{"entity": "location", "role": "source"} into the [kettle]{"entity": "location", "role": "destination"}.
+    - pour [2]{"entity": "amount", "role": "quantity"} [drops]{"entity": "amount", "role": "units"} of [honey]{"entity": "stuff", "role": ""} from the [jar]{"entity": "location", "role": "source"} onto the [salad]{"entity": "location", "role": "destination"}.
+    - pour [4]{"entity": "amount", "role": "quantity"} [ounces]{"entity": "amount", "role": "units"} of [whiskey]{"entity": "stuff", "role": ""} from the [vessel]{"entity": "location", "role": "source"} into the [glass]{"entity": "location", "role": "destination"}.
+    - extinguish the [fire]{"entity": "location", "role": "destination"} by pouring a steady stream of [water]{"entity": "stuff", "role": ""} from the [barrels]{"entity": "location", "role": "source"} onto the [flames]{"entity": "location", "role": "destination"}.
+    - sprinkle the [water]{"entity": "stuff", "role": ""} onto the [plants]{"entity": "location", "role": "destination"} using [rose head]{"entity": "location", "role": "source"}.
+    - Dispense [1]{"entity": "amount", "role": "quantity"} [liter]{"entity": "amount", "role": "units"} of [water]{"entity": "stuff", "role": ""} from the [barrel]{"entity": "location", "role": "source"} into the [mug]{"entity": "location", "role": "destination"}.
+    - Sprinkle grated [cheese]{"entity": "stuff", "role": ""}  generously on the [pizza]{"entity": "location", "role": "destination"} before baking
+    - Sprinkle a [pinch]{"entity": "amount", "role": "units"} of [salt]{"entity": "stuff", "role": ""}  on the boiling [water]{"entity": "location", "role": "destination"}.
+    - tilt the [glass]{"entity": "location", "role": "source"} to let go [100]{"entity": "amount", "role": "quantity"} [milliliters]{"entity": "amount", "role": "units"} of honey into the cooking [pan]{"entity": "location", "role": "destination"}.
+    - let go [2]{"entity": "amount", "role": "quantity"} [ounces]{"entity": "amount", "role": "units"} of [honey]{"entity": "stuff", "role": ""} from the [jug]{"entity": "location", "role": "source"}.
+    - stream [water]{"entity": "stuff", "role": ""} from the [bowl]{"entity": "location", "role": "source"} to cooking [pan]{"entity": "location", "role": "destination"}.
+    - let [2]{"entity": "amount", "role": "quantity"} [drops]{"entity": "amount", "role": "units"} of [vinegar]{"entity": "stuff", "role": ""} from small white can to brown [jug]{"entity": "location", "role": "destination"}.
+    - spray [oil]{"entity": "stuff", "role": ""} on the cooking [pan]{"entity": "location", "role": "destination"}.
+    - Spray [cooking oil]{"entity": "stuff", "role": ""} lightly on the [baking sheet]{"entity": "location", "role": "destination"} before placing the cookies.
+    - Spray a [disinfectant]{"entity": "stuff", "role": ""} on kitchen [sink]{"entity": "location", "role": "destination"}.
+    - tilt the [glass]{"entity": "location", "role": "source"} to drizzle [3]{"entity": "amount", "role": "quantity"} [ounces]{"entity": "amount", "role": "units"} of [honey]{"entity": "stuff", "role": ""} onto the sizzling [pan]{"entity": "location", "role": "destination"}.
+    - Tilt the plastic [bowl]{"entity": "location", "role": "source"} slightly to release a stream of sweet [molasses]{"entity": "stuff", "role": ""} onto the [cooking pan]{"entity": "location", "role": "destination"}.
+    - Hold the [chocolate syrup bottle]{"entity": "location", "role": "source"} high and tilt it gracefully, letting the sweet [paste]{"entity": "stuff", "role": ""} cascade onto the warm [dessert]{"entity": "location", "role": "destination"}.
+    - Gently tilt the [soy sauce dispenser]{"entity": "location", "role": "source"}, letting the umami-rich [soup]{"entity": "stuff", "role": ""} flow onto the stir-frying [vegetables]{"entity": "location", "role": "destination"}.
+    - Allow [2]{"entity": "amount", "role": "quantity"} [tbsp]{"entity": "amount", "role": "units"} of [vinegar]{"entity": "stuff", "role": ""} from the [flask]{"entity": "location", "role": "source"} to trickle slowly, adding its tangy essence to the [sizzling pan]{"entity": "location", "role": "destination"}.
+    - Allow the [melted chocolate]{"entity": "stuff", "role": ""} to trickle over the [dessert]{"entity": "location", "role": "destination"} for a tempting finish.
+    - Carefully dribble a [pint]{"entity": "amount", "role": "units"} of the [balsamic glaze]{"entity": "stuff", "role": ""} over the [salad]{"entity": "location", "role": "destination"} for an exquisite presentation.
+    - Drizzle the [olive oil]{"entity": "stuff", "role": ""} over the [vegetables]{"entity": "location", "role": "destination"} before roasting them in the oven.
+    - Let the [maple syrup]{"entity": "stuff", "role": ""} ooze gently from the [bottle] onto the stack of fluffy [pancakes]{"entity": "location", "role": "destination"}.
+    - Slowly distil the aromatic essence of [vanilla]{"entity": "stuff", "role": ""} into the simmering [custard]{"entity": "location", "role": "destination"}.
+    - let the [tea leaves]{"entity": "stuff", "role": ""} trickle into the [hot water]{"entity": "location", "role": "destination"}, creating a soothing infusion.
+    - For a delightful touch, drizzle the [caramel sauce]{"entity": "stuff", "role": ""} over the decadent [cheesecake]{"entity": "location", "role": "destination"}.
+    - make sure to drip [water]{"entity": "stuff", "role": ""} into the [sauce]{"entity": "location", "role": "destination"}.
+    - Slowly and steadily, let the warm [butter]{"entity": "stuff", "role": ""} trickle over the golden [corn]{"entity": "location", "role": "destination"} on the cob.
+    - To enhance the taste, expertly dribble the aged [balsamic vinegar]{"entity": "stuff", "role": ""} over the fresh [strawberries]{"entity": "location", "role": "destination"}.
+    - take a moment to drizzle the [citrus glaze]{"entity": "stuff", "role": ""} over the zesty [lemon cake]{"entity": "location", "role": "destination"}.
+    - Carefully pour [5]{"entity": "amount", "role": "quantity"} [cups]{"entity": "amount", "role": "units"} of hot [broth]{"entity": "stuff", "role": ""} from [casserole]{"entity": "location", "role": "source"} into the [soup bowls]{"entity": "location", "role": "destination"}, ensuring an even distribution of flavors.
+    - gush out a [quart]{"entity": "amount", "role": "units"} of hot [chocolate sauce]{"entity": "stuff", "role": ""} as you cut into the decadent [lava cake]{"entity": "location", "role": "destination"}.
+    - jet a swirl of creamy [frosting]{"entity": "stuff", "role": ""} onto each [cupcake]{"entity": "location", "role": "destination"}.
+    - Sloosh the [marinade]{"entity": "stuff", "role": ""} around in the bag to ensure all the [chicken]{"entity": "location", "role": "destination"} pieces are evenly coated.
+    - Discharge the excess [water]{"entity": "stuff", "role": ""} from the [pasta pot]{"entity": "location", "role": "source"} after boiling the noodles.
+    - gently pour out [batter]{"entity": "stuff", "role": ""} in equal portions into the [cupcake liners]{"entity": "location", "role": "destination"}.
+    - Allow [3]{"entity": "amount", "role": "quantity"} [tsp]{"entity": "amount", "role": "units"} [melted cheese]{"entity": "stuff", "role": ""} to cascade down the sides of the [nachos]{"entity": "location", "role": "destination"}.
+    - shoot a swirl of whipped [cream]{"entity": "stuff", "role": ""} onto the top of the hot [cocoa]{"entity": "location", "role": "destination"}.
+    - squeeze the [ketchup]{"entity": "stuff", "role": ""} from the [bottle]{"entity": "location", "role": "source"} over [pizza]{"entity": "location", "role": "destination"}.
+    - pour [100]{"entity": "amount", "role": "quantity"} [ml]{"entity": "amount", "role": "units"} of [syrup]{"entity": "stuff", "role": ""} from the [bowl]{"entity": "location", "role": "source"} into [cup]{"entity": "location", "role": "destination"}.
+    - [water]{"entity": "stuff", "role": ""} the [plants]{"entity": "location", "role": "destination"}.
+    - throw some [water]{"entity": "stuff", "role": ""} on the [flames]{"entity": "location", "role": "destination"}.
+    - slowly pour [1]{"entity": "amount", "role": "quantity"} [l]{"entity": "amount", "role": "units"} of [pancake batter]{"entity": "stuff", "role": ""} from the [casserole]{"entity": "location", "role": "source"} on to the [cooking pan]{"entity": "location", "role": "destination"}.
+    - drizzle [50]{"entity": "amount", "role": "quantity"} [ml]{"entity": "amount", "role": "units"} of [oil]{"entity": "stuff", "role": ""} from the [flask]{"entity": "location", "role": "source"} into the [jug]{"entity": "location", "role": "destination"}.
+    - pour [particles]{"entity": "stuff", "role": ""} into the [cup]{"entity": "location", "role": "destination"}.
+    - tilt the [mug]{"entity": "location", "role": "source"} and drop few [particles]{"entity": "stuff", "role": ""} into the [can]{"entity": "location", "role": "destination"}.
+
+- intent: shake
+  examples: |
+    - Shake the [pepper grinder]{"entity": "obj_to_be_shaken", "role": "utensil"} over the [pasta]{"entity": "location", "role": "destination"}.
+    - Shake the [salad dressing]{"entity": "obj_to_be_shaken", "role": "utensil"} well over the fresh [greens]{"entity": "location", "role": "destination"}.
+    - Shake the [salt shaker]{"entity": "obj_to_be_shaken", "role": "utensil"} gently to season the [fish]{"entity": "location", "role": "destination"} to your taste.
+    - Jiggle the [frying pan]{"entity": "obj_to_be_shaken", "role": "utensil"} to prevent the eggs from sticking.
+    - Rattle the [salt shaker]{"entity": "obj_to_be_shaken", "role": "utensil"} to add a pinch of salt on the [chicken breast]{"entity": "location", "role": "destination"}.
+    - Quiver the [pepper mill]{"entity": "obj_to_be_shaken", "role": "utensil"} over the [soup]{"entity": "location", "role": "destination"}.
+    - Shudder the [cookie jar]{"entity": "obj_to_be_shaken", "role": "utensil"} to settle the contents.
+    - tumble the spice [jar]{"entity": "obj_to_be_shaken", "role": "utensil"} to even the seasoning.
+    - Waggle the [whisk]{"entity": "obj_to_be_shaken", "role": "utensil"} gently to blend the eggs and milk in the [bowl]{"entity": "location", "role": "destination"}.
+    - Joggle the [simmering pot]{"entity": "obj_to_be_shaken", "role": "utensil"} occasionally.
+    - Waggle the pastry [brush]{"entity": "obj_to_be_shaken", "role": "utensil"} over the [dough]{"entity": "location", "role": "destination"} to distribute the melted butter evenly.
+    - move the [pepper shaker]{"entity": "obj_to_be_shaken", "role": "utensil"} rapidly from side to side.
+    - Vigorously shake the [salad dressing]{"entity": "obj_to_be_shaken", "role": "utensil"} onto the [greens]{"entity": "location", "role": "destination"}.
+    - gently jiggle the [casserole]{"entity": "obj_to_be_shaken", "role": "utensil"} to prevent sticking.
+    - agitate the [ladle]{"entity": "obj_to_be_shaken", "role": "utensil"} in the soup.
+    - Jerk the [pan]{"entity": "obj_to_be_shaken", "role": "utensil"} sharply to flip the pancakes.
+    - slowly vibrate the [bowl]{"entity": "obj_to_be_shaken", "role": "utensil"}.
+    - Joggle the [cooking pot]{"entity": "obj_to_be_shaken", "role": "utensil"} for [10]{"entity": "amount", "role": "time"} [secs]{"entity": "amount", "role": "units"}.
+    - Shake the [salt shaker]{"entity": "obj_to_be_shaken", "role": "utensil"} for [2]{"entity": "amount", "role": "quantity"} [seconds]{"entity": "amount", "role": "units"}.
+    - Waggle the [whisk]{"entity": "obj_to_be_shaken", "role": "utensil"} gently for [2]{"entity": "amount", "role": "time"} [minutes]{"entity": "amount", "role": "units"} to blend the eggs and milk in the [bowl]{"entity": "location", "role": "destination"}.
+    - make the jar to jerk for [1]{"entity": "amount", "role": "time"} [minute]{"entity": "amount", "role": "units"}.
+#    - add amount-time and units-secs/mins
+
+- lookup: stuff
+  examples: |
+    - rice
+    - water
+    - honey
+    - oil
+    - salt
+    - sauce
+    - juice
+    - whiskey
+    - whisky
+    - sugar
+    - batter
+    - chocolate
+    - soup
+    - cream
+    - ice cream
+    - herbs
+    - vegetables
+    - milk
+    - powder
+    - pepper
+    - flour
+    - coriander
+    - paste
+    - soup
+    - pancake batter
+    - turmeric powder
+    - broth
+    - wine
+    - stock
+    - alcohol
+    - cheese
+    - cocoa
+    - starch
+    - ketchup
+    - glycerin
+    - molasses
+    - syrup
+    - jam
+    - paprika
+    - cinnamon
+    - particles
+
+- lookup: location
+  examples: |
+    - oven
+    - table
+    - floor
+    - island area
+    - island
+    - fridge
+    - holder
+    - washbasin
+    - dishwasher
+    - sink
+    - rack
+    - pan
+    - salad
+    - tomatos
+    - kettle
+    - bottle
+    - bowls
+    - pot
+    - barrels
+    - glass
+    - jar
+    - mug
+    - vessel
+    - container
+    - jug
+    - can
+    - tin
+
+- lookup: obj_to_be_shaken
+  examples: |
+    - cup
+    - spoon
+    - fork
+    - knife
+    - ladle
+    - spatula
+    - casserole
+    - whisk
+    - colander
+    - grater
+    - masher
+    - peeler
+    - bowl
+    - plate
+    - pan
+    - saltshaker
+    - cup
+    - glass
+    - mug
+    - jar
+
+- synonym: seconds
+  examples: |
+    - sec
+    - secs
+    - second
+
+- synonym: minutes
+  examples: |
+    - min
+    - mins
+    - minute
+
+- synonym: liters
+  examples: |
+    - liter
+    - l
+    
+- synonym: milliliters
+  examples: |
+    - milliliter
+    - mls
+    - ml
+
+- synonym: teaspoons
+  examples: |
+    - tsp
+    - tsps
+
+- synonym: tablespoons
+  examples: |
+    - tbsp
+    - tbsps
+
+- synonym: grams
+  examples: |
+    - gram
+    - gms
+    - g
+
+- synonym: kilograms
+  examples: |
+    - kilogram
+    - kg
+    - kgs
+
+- lookup: food
+  examples: |
+    - fruit
+    - orange
+    - apple
+    - mango
+    - strawberry
+    - berries
+    - berry
+    - vegetable
+    - carrot
+    - potato
+    - tomato
+    - cucumber
+    - onion
+    - beans
+    - spinach
+    - milk
+    - cheese
+    - butter
+
+- lookup: obj_to_be_picked
+  examples: |
+    - cup
+    - spoon
+    - fork
+    - knife
+    - ladle
+    - spatula
+    - casserole
+    - whisk
+    - colander
+    - grater
+    - masher
+    - peeler
+    - bowl
+    - plate
+    - pan
+    - mixer
+    - saltshaker
+    - scissor
+
+- synonym: spoon
+  examples: |
+    - slotted spoon
+
+- synonym: fridge
+  examples: |
+    - freezer
+    - refrigerator
+
+- synonym: island_area
+  examples: |
+    - island
+
+- synonym: oven
+  examples: |
+    - microwave
+
+#- intent: greet
+#  examples: |
+#    - hey
+#    - hello
+#    - hi
+#    - hello there
+#    - good morning
+#    - good evening
+#    - moin
+#    - hey there
+#    - let's go
+#    - hey dude
+#    - goodmorning
+#    - goodevening
+#    - good afternoon
+#
+#- intent: goodbye
+#  examples: |
+#    - cu
+#    - good by
+#    - cee you later
+#    - good night
+#    - bye
+#    - goodbye
+#    - have a nice day
+#    - see you around
+#    - bye bye
+#    - see you later
+#
+#- intent: affirm
+#  examples: |
+#    - yes
+#    - y
+#    - indeed
+#    - of course
+#    - that sounds good
+#    - correct
+#
+#- intent: deny
+#  examples: |
+#    - no
+#    - n
+#    - never
+#    - I don't think so
+#    - don't like that
+#    - no way
+#    - not really
+#
+#- intent: mood_great
+#  examples: |
+#    - perfect
+#    - great
+#    - amazing
+#    - feeling like a king
+#    - wonderful
+#    - I am feeling very good
+#    - I am great
+#    - I am amazing
+#    - I am going to save the world
+#    - super stoked
+#    - extremely good
+#    - so so perfect
+#    - so good
+#    - so perfect
+#
+#- intent: mood_unhappy
+#  examples: |
+#    - my day was horrible
+#    - I am sad
+#    - I don't feel very well
+#    - I am disappointed
+#    - super sad
+#    - I'm so sad
+#    - sad
+#    - very sad
+#    - unhappy
+#    - not good
+#    - not very good
+#    - extremly sad
+#    - so saad
+#    - so sad
+#
+#- intent: bot_challenge
+#  examples: |
+#    - are you a bot?
+#    - are you a human?
+#    - am I talking to a bot?
+#    - am I talking to a human?

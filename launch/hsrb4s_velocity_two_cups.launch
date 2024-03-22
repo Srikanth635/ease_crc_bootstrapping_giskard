@@ -1,0 +1,19 @@
+<launch>
+   <node pkg="tf" type="static_transform_publisher" name="fake_odometry" output="screen" args="0 0 0 0 0 0 1 map odom 10" /> 
+    <arg name="namespace" default="hsrb4s" />
+    <group ns="hsrb4s">
+        <include file="$(find mujoco_sim)/launch/mujoco_sim.launch">
+            <arg name="config" value="$(find hsr_mujoco)/config/hsrb4s.yaml" />
+            <arg name="robot" value="$(find hsr_mujoco)/model/hsrb4s.xml" />
+            <arg name="world" value="$(find hsr_mujoco)/model/world_two_cups.xml" />
+        </include>
+    </group>
+
+    <group ns="$(arg namespace)">
+        <param name="robot_description" command="$(find xacro)/xacro $(find hsr_description)/robots/hsrb4s.urdf" />
+        <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" />
+
+        <include file="$(find hsr_control)/launch/hsr_velocity_controllers.launch" />
+    </group>
+
+</launch>

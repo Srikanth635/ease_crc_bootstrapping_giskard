@@ -1,0 +1,32 @@
+version: '3'
+services:
+  giskard-example:
+    image: giskard-example:mujoco_actions_devels
+    build:
+      context: ../
+      dockerfile: ./binder/Dockerfile
+    stdin_open: true
+    tty: true
+    ports: 
+      - 8888:8888
+      # - 11311:11311
+    privileged: true
+    # user: root
+    working_dir: /home/jovyan/
+    command: jupyter lab --allow-root --NotebookApp.token='' --no-browser --ip=0.0.0.0
+    entrypoint: ["/home/jovyan/giskard_examples/binder/entrypoint.sh"]
+    volumes:
+      - ../:/home/jovyan/giskard_examples
+      - /usr/share/vulkan/icd.d:/usr/share/vulkan/icd.d
+      - /tmp/.X11-unix:/tmp/.X11-unix:rw
+    environment:
+      - DISPLAY
+      - QT_X11_NO_MITSHM=1
+      - NVIDIA_DRIVER_CAPABILITIES=all
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]

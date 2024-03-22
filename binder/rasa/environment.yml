@@ -1,0 +1,8 @@
+name: rasaenvs
+channels:
+  - defaults
+dependencies:
+  - pip
+  - pip:
+    - rasa
+  # - python=3.9

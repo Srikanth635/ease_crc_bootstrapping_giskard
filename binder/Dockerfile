@@ -98,11 +98,6 @@ RUN rm -rf src/iai_pr2/iai_pr2_donbot
 RUN cd src/rvizweb && git pull
 RUN catkin build
 
-# RUN pip install --upgrade \
-#   jupyter-collaboration \
-#   openai \
-#   jupyter-ai
-
 # Chatbot configs
 # COPY --chown=${NB_USER}:users binder/jupyter-ai.json /home/${NB_USER}/.local/share/jupyter/jupyter_ai/config.json
 # ENV OPENAI_API_BASE="http://192.168.240.1:5002"
@@ -134,11 +129,11 @@ RUN pip install --upgrade --force-reinstall flask-sqlalchemy sqlalchemy
 
 RUN cd ${ROS_WS}/src/mujoco_robots && git pull
 
-# RUN chmod -R a+rwx ${PWD}/binder/rasa
+RUN chmod +x ./rasa.sh
 RUN wget "https://huggingface.co/google-bert/bert-large-uncased/resolve/main/model.safetensors?download=true" \
   -O ${PWD}/binder/rasa/RASA/models--bert-large-uncased/snapshots/6da4b6a26a1877e173fca3225479512db81a5e5b/model.safetensors
 
-# -------------------------------------------------------------------------
+# ------------------------KnowRob Files-------------------------------------------
 
 # Install SWI Prolog
 USER root

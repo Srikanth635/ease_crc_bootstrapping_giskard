@@ -11,7 +11,7 @@ ln -s ${MUJOCO_WORLD_PATH}/model ${MUJOCO_WORLD_PATH}/mujoco_world/model
 # Start MongoDB and save data on working directory
 MONGODB_URL=mongodb://127.0.0.1:27017
 mkdir -p ${PWD}/mongodb/data
-mongod --fork --logpath ${PWD}/mongodb/mongod.log
+mongod --fork --logpath ${PWD}/mongodb/mongod.log --dbpath ${PWD}/mongodb/data
 
 # Launch Knowrob
 source ${KNOWROB_WS}/devel/setup.bash

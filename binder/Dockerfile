@@ -1,44 +1,41 @@
-FROM intel4coro/base-notebook:20.04-noetic-full-xpra
+# FROM intel4coro/base-notebook:20.04-noetic-full-xpra
+FROM intel4coro/base-notebook:20.04-noetic
 
-RUN python --version
+#------------------------------------------rasa38 Conda Env (Python 3.8) for rasa packages------------------------------------------
 
-#-------------------------------------------------------------------------------------------------------------------------------------------
 USER root
 
 RUN conda create -n rasa38 python=3.8 && echo "conda activate rasa38" >> ~/.bashrc
 
 SHELL ["conda", "run", "-n", "rasa38", "/bin/bash", "-c"]
-# SHELL ["/bin/bash", "-c", "source ~/.bashrc && conda activate rasa38"]
 
-RUN python --version
+RUN pip install rasa && pip install rasa[spacy] && pip install transformers && pip install nltk
 
-RUN pip install rasa && pip install spacy && pip install transformers && spacy download en_core_web_sm
+RUN python -m spacy download en_core_web_sm && python -m nltk.downloader punkt && python -m nltk.downloader wordnet
 
-# SHELL ["/bin/bash", "-c", "source ~/.bashrc && conda deactivate"]
+# Initiate RASA workspace 
+COPY --chown=${NB_USER}:users binder/rasa.sh /home/${NB_USER}/rasa.sh
+RUN chmod +x /home/${NB_USER}/rasa.sh
+
+ENV RASA_WS=/home/${NB_USER}/workspace/rasa
+WORKDIR ${RASA_WS}/src
+COPY --chown=${NB_USER}:users binder/rasa ${RASA_WS}/src/
+RUN chmod -R a+rwx ${PWD}
+# SHELL ["conda", "run", "-n", "rasa38", "/bin/bash", "-c"]
+
+#------------------------------------------Switch to base Conda Env (Python 3.10)------------------------------------------
+
+USER root
 
 SHELL ["conda", "run", "-n", "base", "/bin/bash", "-c"]
 
-RUN python --version
-
+RUN apt-get install ripgrep
 USER ${NB_USER}
 
 RUN pip uninstall -y jlab-enhanced-cell-toolbar
 RUN pip install https://raw.githubusercontent.com/yxzhan/jupyterlab-rviz/master/dist/jupyterlab_rviz-0.3.2.tar.gz \
   https://raw.githubusercontent.com/yxzhan/extension-examples/main/cell-toolbar/dist/jupyterlab_examples_cell_toolbar-0.1.4.tar.gz
-RUN mamba install -y ripgrep
-# RUN pip install --upgrade \
-#   sidecar \
-#   Cython \
-#   openai \
-#   jupyterlab-git \
-#   jupyterlab-unfold \
-#   jupyter-archive \
-#   jupyterlab-search-replace \
-#   jupyter-offlinenotebook \
-#   jupyter-collaboration \
-#   jupyter-ai \
-#   jupyterlab-language-pack-de-DE  \
-#   jupyterlab_execute_time
+# RUN mamba install -y ripgrep
 
 # Initiate ROS workspace 
 ENV ROS_WS=/home/${NB_USER}/workspace/ros
@@ -112,25 +109,9 @@ RUN catkin build
 # ENV OPENAI_API_KEY="sk-4e6e40294b4da6fd87ddc0a4aae645a4"
 
 # -----------------------------------------------------------------------------
-# Initiate BOOTSTRAP workspace 
-ENV BOOT_WS=/home/${NB_USER}/workspace/bootstrap
-WORKDIR ${BOOT_WS}/src
-COPY --chown=${NB_USER}:users binder/bootstrap/requirements.txt ${BOOT_WS}/src/requirements.txt
-
-# install the dependencies and packages in the requirements file
-RUN pip install --no-cache-dir -r requirements.txt
-
-RUN spacy download en_core_web_sm
+RUN pip install spacy && spacy download en_core_web_sm && pip install nltk
 
 RUN python -m nltk.downloader punkt && python -m nltk.downloader wordnet
-# -----------------------------------------------------------------------------
-# Initiate RASA workspace 
-COPY --chown=${NB_USER}:users binder/rasa.sh /home/${NB_USER}/rasa.sh
-RUN chmod +x /home/${NB_USER}/rasa.sh
-
-# ENV RASA_WS=/home/${NB_USER}/workspace/rasa
-# WORKDIR ${RASA_WS}/src
-# COPY --chown=${NB_USER}:users binder/rasa ${RASA_WS}/src/
 # -----------------------------------------------------------------------------
 
 # Copy the giskard tmp meshes to skip the converting step
@@ -146,11 +127,6 @@ RUN ln -s ${ROS_WS} ${PWD}/ROS_WS
 # jupyterlab interface configuration
 COPY --chown=${NB_USER}:users binder/webapps.json ${ROS_WS}/src/rvizweb/webapps/app.json
 COPY --chown=${NB_USER}:users binder/jupyter-settings.json /opt/conda/share/jupyter/lab/settings/overrides.json
-COPY --chown=${NB_USER}:users binder/entrypoint.sh /
-RUN chmod +x /entrypoint.sh
-# ENTRYPOINT ["/entrypoint.sh"]
-# CMD ["start-notebook.sh"]
-
 
 RUN cd ${ROS_WS}/src/rvizweb && git pull
 
@@ -158,7 +134,11 @@ RUN pip install --upgrade --force-reinstall flask-sqlalchemy sqlalchemy
 
 RUN cd ${ROS_WS}/src/mujoco_robots && git pull
 
-# -------------------------------------------------------
+# RUN chmod -R a+rwx ${PWD}/binder/rasa
+RUN wget "https://huggingface.co/google-bert/bert-large-uncased/resolve/main/model.safetensors?download=true" \
+  -O ${PWD}/binder/rasa/RASA/models--bert-large-uncased/snapshots/6da4b6a26a1877e173fca3225479512db81a5e5b/model.safetensors
+
+# -------------------------------------------------------------------------
 
 # Install SWI Prolog
 USER root
@@ -241,7 +221,7 @@ RUN pip install --upgrade \
   sidecar \
   Cython \
   openai \
-  # jupyterlab-git \
+  jupyterlab-git \
   jupyterlab-unfold \
   jupyter-archive \
   jupyterlab-search-replace \

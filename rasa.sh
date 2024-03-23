@@ -10,4 +10,4 @@ python3 --version
 
 ls -l
 
-python3 start_rasa.py
+python3 start_rasas.py

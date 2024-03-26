@@ -18,5 +18,4 @@ source ${KNOWROB_WS}/devel/setup.bash
 export KNOWROB_MONGODB_URI=${MONGODB_URL}/?appname=knowrob
 roslaunch --wait knowrob knowrob.launch &
 
-source ${ROS_WS}/devel/setup.bash
 exec "$@"

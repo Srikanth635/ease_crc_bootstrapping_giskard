@@ -14,7 +14,7 @@ roslaunch --wait knowrob knowrob.launch &
 source ${ROS_WS}/devel/setup.bash
 
 roscore &
-roslaunch --wait rvizweb rvizweb.launch &
+roslaunch --wait rvizweb rvizweb.launch config_file:=/home/${NB_USER}/bootstrapping_giskard/binder/rvizweb_config.json &
 
 MUJOCO_WORLD_PATH=${ROS_WS}/src/mujoco_world/mujoco_world
 mkdir ${MUJOCO_WORLD_PATH}/mujoco_world

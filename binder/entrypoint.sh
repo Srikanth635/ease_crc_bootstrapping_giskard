@@ -25,4 +25,4 @@ echo ${KNOWROB_WS}/devel/setup.bash >> ~/.bashrc
 
 source ~/.bashrc
 
-exec "$@"
+xvfb-run exec "$@"

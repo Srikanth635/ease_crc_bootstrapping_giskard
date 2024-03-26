@@ -146,15 +146,15 @@ RUN mkdir -p /data/db && \
 USER ${NB_USER}
 ENV KNOWROB_WS=${HOME}/workspace/knowrob
 RUN mkdir -p ${KNOWROB_WS}/src
-# WORKDIR ${KNOWROB_WS}/src
-# RUN wstool init && \
-#     wstool merge https://raw.github.com/knowrob/knowrob/master/rosinstall/knowrob-base.rosinstall && \
-#     wstool update
+WORKDIR ${KNOWROB_WS}/src
+RUN wstool init && \
+    wstool merge https://raw.github.com/knowrob/knowrob/master/rosinstall/knowrob-base.rosinstall && \
+    wstool update
 
 # # Switch to root user to install ROS dependencies
 USER root
-# RUN rosdep update && rosdep install -y -r --ignore-src --from-paths . && \
-#     rosdep fix-permissions
+RUN rosdep update && rosdep install -y -r --ignore-src --from-paths . && \
+    rosdep fix-permissions
 
 COPY --chown=${NB_USER}:users knowrob_cloud ${KNOWROB_WS}/src/knowrob_cloud
 COPY --chown=${NB_USER}:users prolog /prolog
@@ -162,11 +162,10 @@ COPY --chown=${NB_USER}:users prolog /prolog
 # # Build catkin workspace
 USER ${NB_USER}
 WORKDIR ${KNOWROB_WS}
-# RUN source ${ROS_PATH}/setup.bash && catkin_make
+RUN source ${ROS_PATH}/setup.bash && catkin_make
 
 # # Source knowrob workspace on a new bash shell
-# RUN echo "source ${KNOWROB_WS}/devel/setup.bash" >> ${HOME}/.bashrc
-RUN echo "source ${ROS_WS}/devel/setup.bash" >> ${HOME}/.bashrc
+RUN echo "source ${KNOWROB_WS}/devel/setup.bash" >> ${HOME}/.bashrc
 
 # Install jupyter knowrob kernel
 USER ${NB_USER}

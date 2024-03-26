@@ -1,15 +1,15 @@
-- git:
-    local-name: knowrob
-    uri: 'https://github.com/knowrob/knowrob.git'
-    version: master
-- git:
-    local-name: rosprolog
-    uri: 'https://github.com/knowrob/rosprolog.git'
-    version: master
-- git:
-    local-name: iai_common_msgs
-    uri: 'https://github.com/code-iai/iai_common_msgs.git'
-    version: master
+#- git:
+#    local-name: knowrob
+#    uri: 'https://github.com/knowrob/knowrob.git'
+#    version: master
+#- git:
+#    local-name: rosprolog
+#    uri: 'https://github.com/knowrob/rosprolog.git'
+#    version: master
+#- git:
+#    local-name: iai_common_msgs
+#    uri: 'https://github.com/code-iai/iai_common_msgs.git'
+#    version: master
 - git:
     local-name: giskardpy
     uri: https://github.com/SemRoCo/giskardpy.git

@@ -1,8 +1,6 @@
 #!/bin/bash
 #source ${ROS_WS}/devel/setup.bash
-#echo "source ${ROS_WS}/devel/setup.bash" >> ${HOME}/.bashrc
-#echo "source ${KNOWROB_WS}/devel/setup.bash" >> ${HOME}/.bashrc
-
+echo "source ${ROS_WS}/devel/setup.bash" >> ${HOME}/.bashrc
 
 roscore &
 roslaunch --wait rvizweb rvizweb.launch &
@@ -18,6 +16,7 @@ mongod --fork --logpath ${PWD}/mongodb/mongod.log --dbpath ${PWD}/mongodb/data
 
 # Launch Knowrob
 #source ${KNOWROB_WS}/devel/setup.bash
+echo "source ${KNOWROB_WS}/devel/setup.bash" >> ${HOME}/.bashrc
 export KNOWROB_MONGODB_URI=${MONGODB_URL}/?appname=knowrob
 roslaunch --wait knowrob knowrob.launch &
 

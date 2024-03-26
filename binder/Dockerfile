@@ -92,8 +92,6 @@ RUN rm -rf src/iai_pr2/iai_pr2_donbot
 RUN cd src/rvizweb && git pull
 RUN catkin build
 
-RUN echo "source ${ROS_WS}/devel/setup.bash" >> ${HOME}/.bashrc
-
 # Copy the giskard tmp meshes to skip the converting step
 COPY --chown=${NB_USER}:users binder/giskard_decomposed_obj ${ROS_WS}/src/giskardpy/tmp
 # The giskard standalone does not publish tf messaages by default set it to true for rvizweb

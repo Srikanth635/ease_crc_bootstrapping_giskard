@@ -146,15 +146,15 @@ RUN mkdir -p /data/db && \
 USER ${NB_USER}
 ENV KNOWROB_WS=${HOME}/workspace/knowrob
 RUN mkdir -p ${KNOWROB_WS}/src
-WORKDIR ${KNOWROB_WS}/src
-RUN wstool init && \
-    wstool merge https://raw.github.com/knowrob/knowrob/master/rosinstall/knowrob-base.rosinstall && \
-    wstool update
+# WORKDIR ${KNOWROB_WS}/src
+# RUN wstool init && \
+#     wstool merge https://raw.github.com/knowrob/knowrob/master/rosinstall/knowrob-base.rosinstall && \
+#     wstool update
 
 # # Switch to root user to install ROS dependencies
-USER root
-RUN rosdep update && rosdep install -y -r --ignore-src --from-paths . && \
-    rosdep fix-permissions
+# USER root
+# RUN rosdep update && rosdep install -y -r --ignore-src --from-paths . && \
+#     rosdep fix-permissions
 
 COPY --chown=${NB_USER}:users knowrob_cloud ${KNOWROB_WS}/src/knowrob_cloud
 COPY --chown=${NB_USER}:users prolog /prolog
@@ -162,17 +162,17 @@ COPY --chown=${NB_USER}:users prolog /prolog
 # # Build catkin workspace
 USER ${NB_USER}
 WORKDIR ${KNOWROB_WS}
-RUN source ${ROS_PATH}/setup.bash && catkin_make
+# RUN source ${ROS_PATH}/setup.bash && catkin_make
 
 # # Source knowrob workspace on a new bash shell
-RUN echo "source ${KNOWROB_WS}/devel/setup.bash" >> ${HOME}/.bashrc
+# RUN echo "source ${KNOWROB_WS}/devel/setup.bash" >> ${HOME}/.bashrc
 
 # Install jupyter knowrob kernel
-USER ${NB_USER}
-COPY --chown=${NB_USER}:users . ${HOME}/bootstrapping_giskard
+# USER ${NB_USER}
+# COPY --chown=${NB_USER}:users . ${HOME}/bootstrapping_giskard
 WORKDIR ${HOME}/bootstrapping_giskard
-RUN pip install .
-COPY --chown=${NB_USER}:users ./kernel.json ${HOME}/.local/share/jupyter/kernels/jknowrob/kernel.json
+# RUN pip install .
+# COPY --chown=${NB_USER}:users ./kernel.json ${HOME}/.local/share/jupyter/kernels/jknowrob/kernel.json
 
 # Download the example_neem
 USER root
@@ -194,29 +194,9 @@ COPY --chown=${NB_USER}:users binder/entrypoint.sh /
 RUN chmod +x /entrypoint.sh
 ENTRYPOINT ["/entrypoint.sh"]
 
+WORKDIR /home/${NB_USER}/bootstrapping_giskard/
 # WORKDIR ${HOME}/bootstrapping_giskard/lectures
 # RUN ln -s ${KNOWROB_WS} ${PWD}/KNOWROB_WS
 
 
 # #---------------------------------------------------------------------------------------------------------------------
-
-# RUN pip install --upgrade \
-#   sidecar \
-#   Cython \
-#   openai \
-#   jupyterlab-git \
-#   jupyterlab-unfold \
-#   jupyter-archive \
-#   jupyterlab-search-replace \
-#   jupyter-offlinenotebook \
-#   jupyter-collaboration \
-#   jupyter-ai \
-#   jupyterlab-language-pack-de-DE  \
-#   jupyterlab_execute_time
-
-# RUN pip install --upgrade \
-#   jupyter-collaboration \
-#   openai \
-#   jupyter-ai
-
-WORKDIR /home/${NB_USER}/bootstrapping_giskard/

@@ -122,6 +122,8 @@ RUN chmod +x /home/${NB_USER}/bootstrapping_giskard/rasa.sh
 RUN wget "https://huggingface.co/google-bert/bert-large-uncased/resolve/main/model.safetensors?download=true" \
   -O ${PWD}/binder/rasa/RASA/models--bert-large-uncased/snapshots/6da4b6a26a1877e173fca3225479512db81a5e5b/model.safetensors
 
+WORKDIR /home/${NB_USER}/bootstrapping_giskard/
+
 # # ------------------------KnowRob Files-------------------------------------------
 
 # # Install SWI Prolog

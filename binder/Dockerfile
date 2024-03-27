@@ -56,7 +56,7 @@ WORKDIR  ${ROS_WS}
 USER root
 
 RUN rosdep update && apt update && apt dist-upgrade -y \
-  && rosdep install -y --ignore-src --from-paths ./ -r \
+  && rosdep install -y -r --ignore-src --from-paths . \
   && rosdep fix-permissions \
   && apt install -y ffmpeg libglfw3 libglfw3-dev
 USER ${NB_USER}
@@ -168,10 +168,10 @@ WORKDIR ${KNOWROB_WS}
 # RUN echo "source ${KNOWROB_WS}/devel/setup.bash" >> ${HOME}/.bashrc
 
 # Install jupyter knowrob kernel
-# USER ${NB_USER}
-# COPY --chown=${NB_USER}:users . ${HOME}/bootstrapping_giskard
+USER ${NB_USER}
+COPY --chown=${NB_USER}:users . ${HOME}/bootstrapping_giskard
 WORKDIR ${HOME}/bootstrapping_giskard
-# RUN pip install .
+RUN pip install .
 # COPY --chown=${NB_USER}:users ./kernel.json ${HOME}/.local/share/jupyter/kernels/jknowrob/kernel.json
 
 # Download the example_neem

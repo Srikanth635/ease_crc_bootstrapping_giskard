@@ -114,6 +114,7 @@ COPY --chown=${NB_USER}:users binder/webapps.json ${ROS_WS}/src/rvizweb/webapps/
 
 
 # -----------------------------------------------------------------------------
+# Installing Python dependencies for RASA
 RUN pip install spacy && spacy download en_core_web_sm && pip install nltk
 
 RUN python -m nltk.downloader punkt && python -m nltk.downloader wordnet
@@ -123,7 +124,7 @@ RUN wget "https://huggingface.co/google-bert/bert-large-uncased/resolve/main/mod
   -O ${PWD}/binder/rasa/RASA/models--bert-large-uncased/snapshots/6da4b6a26a1877e173fca3225479512db81a5e5b/model.safetensors
 
 WORKDIR /home/${NB_USER}/bootstrapping_giskard/
-
+RUN ln -s /home/${NB_USER}/bootstrapping_giskard/binder/rasa/begin_here.ipynb /home/${NB_USER}/bootstrapping_giskard/notebooks/begin.ipynb
 # # ------------------------KnowRob Files-------------------------------------------
 
 # # Install SWI Prolog
@@ -189,16 +190,11 @@ RUN cd /neem_data && \
 
 # jupyterlab interface configuration
 COPY --chown=${NB_USER}:users binder/jupyter-settings.json /opt/conda/share/jupyter/lab/settings/overrides.json
-COPY --chown=${NB_USER}:users binder/webapps.json ${ROS_WS}/src/rvizweb/webapps/app.json
+# COPY --chown=${NB_USER}:users binder/webapps.json ${ROS_WS}/src/rvizweb/webapps/app.json
 
 # # Entrypoint starting knowrob and mongodb
 COPY --chown=${NB_USER}:users binder/entrypoint.sh /
-RUN chmod +x /entrypoint.sh
 ENTRYPOINT ["/entrypoint.sh"]
 
 WORKDIR /home/${NB_USER}/bootstrapping_giskard/
-# WORKDIR ${HOME}/bootstrapping_giskard/lectures
-# RUN ln -s ${KNOWROB_WS} ${PWD}/KNOWROB_WS
-
-
 # #---------------------------------------------------------------------------------------------------------------------

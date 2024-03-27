@@ -19,8 +19,4 @@ mongod --fork --logpath ${PWD}/mongodb/mongod.log --dbpath ${PWD}/mongodb/data
 #export KNOWROB_MONGODB_URI=${MONGODB_URL}/?appname=knowrob
 #roslaunch --wait knowrob knowrob.launch &
 
-cd /home/${NB_USER}/bootstrapping_giskard
-
-./kb.sh
-
 exec "$@"

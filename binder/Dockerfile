@@ -124,7 +124,7 @@ RUN wget "https://huggingface.co/google-bert/bert-large-uncased/resolve/main/mod
   -O ${PWD}/binder/rasa/RASA/models--bert-large-uncased/snapshots/6da4b6a26a1877e173fca3225479512db81a5e5b/model.safetensors
 
 WORKDIR /home/${NB_USER}/bootstrapping_giskard/
-RUN ln -s /home/${NB_USER}/bootstrapping_giskard/binder/rasa/begin_here.ipynb /home/${NB_USER}/bootstrapping_giskard/notebooks/begin.ipynb
+RUN ln /home/${NB_USER}/bootstrapping_giskard/binder/rasa/begin_here.ipynb /home/${NB_USER}/bootstrapping_giskard/notebooks/begin.ipynb
 # # ------------------------KnowRob Files-------------------------------------------
 
 # # Install SWI Prolog

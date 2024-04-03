@@ -212,3 +212,13 @@ def attach_to_gripper(giskard: GiskardWrapper, gripper: GripperModel, object_nam
     new_name = object_name + '_grasped'
     giskard.world.add_box(new_name, object_size, pose=cup_pose, parent_link=gripper.eef_link)
     return new_name
+
+
+def get_object_size(object_name: str):
+    data = {'free_cup': (0.07, 0.07, 0.18),
+            'free_cup2': (0.07, 0.07, 0.18)}
+    # instead of reading from the data storage one could get
+    # the object size from querying the simulation or a knowledgebase or perception
+    if object_name not in data.keys():
+        raise Exception('Given object name is unknown')
+    return data[object_name]

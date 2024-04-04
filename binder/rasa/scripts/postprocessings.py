@@ -199,10 +199,11 @@ def postprocess(rasa_out, compound_props):
 
                 # act = action_verb_finder(intent,compound_props['verbs'])
                 try:
-                    act, goal = testing_finder(intent=intent, source=ins1.source, destination=ins1.destination,
+                    act, goal, side_effects = testing_finder(intent=intent, source=ins1.source, destination=ins1.destination,
                                                stuff=ins1.stuff, dix=compound_props['verbs'])
                     ins1.action_verb = act
                     ins1.goal = goal
+                    ins1.side_effects = side_effects
                 except:
                     print("Problem with action testing finder")
 
@@ -266,21 +267,11 @@ def postprocess(rasa_out, compound_props):
                         ins1.destination_prop.update({'metadata':key})
 
                 # act = action_verb_finder(intent,compound_props['verbs'])
-                act, goal = testing_finder(intent=intent, source=ins1.obj_to_be_shaken, destination=ins1.destination,
+                act, goal, side_effects = testing_finder(intent=intent, source=ins1.obj_to_be_shaken, destination=ins1.destination,
                                             dix=compound_props['verbs'])
                 ins1.action_verb = act
                 ins1.goal = goal
-
-                # if len(act) > 0:
-                #     # if ins1.stuff in viscous and act not in slow_pouring:
-                #     #     ins1.action_verb = 'drizzle'
-                #     # else:
-                #     ins1.action_verb = act
-                # else:
-                #     print("No POS Verb")
-                #     common_verb = [word for word in compound_props['compounded_text'].split(" ")
-                #                    if word in shakes][0]
-                #     ins1.action_verb = common_verb
+                ins1.side_effects = side_effects
 
                 motion, _ = motion_finder(intent=intent, source=ins1.obj_to_be_shaken, destination=ins1.destination,
                                              action_verb=ins1.action_verb,dix=compound_props['verbs'])
@@ -323,9 +314,10 @@ def postprocess(rasa_out, compound_props):
                     elif value == ins1.obj_to_be_picked:
                         ins1.obj_to_be_picked_prop.update({'metadata':key})
 
-                act,goal = testing_finder(intent=intent,dix=compound_props["verbs"],source=ins1.source)
+                act, goal, side_effects = testing_finder(intent=intent,dix=compound_props["verbs"],source=ins1.source)
                 ins1.action_verb = act
                 ins1.goal = goal
+                ins1.side_effects = side_effects
 
                 print("ToDo")
 
@@ -348,20 +340,22 @@ def postprocess(rasa_out, compound_props):
                             if 'role' in dic:
                                 if dic['role'] == "cutter":
                                     ins1.cutter = dic['value']
-                    act, goal = testing_finder(intent=intent)
+                    act, goal, side_effects = testing_finder(intent=intent, cuttie=ins1.cuttie)
                     ins1.action_verb = act
                     ins1.goal = goal
+                    ins1.side_effects = side_effects
                 except:
                     print("Problem with motion finder")
 
     # ins1.print_params()
     return ins1
-def testing_finder(intent=None,source=None,destination=None,stuff=None,dix=None):
+def testing_finder(intent=None,source=None,destination=None,stuff=None,dix=None,cuttie=None):
     act = ""
     goal = ""
     if intent == Intent.POURING.value:
         act = "pour"
-        goal = "no spillage"
+        goal = act + " " + stuff
+        side_effects = "spilling"
         if stuff in viscous:
             if 'ADV' in dix:
                 advs = list(dix['ADV'].keys())
@@ -511,7 +505,8 @@ def testing_finder(intent=None,source=None,destination=None,stuff=None,dix=None)
 
     elif intent == Intent.SHAKING.value:
         act = "sprinkle"
-        goal = "no spillage"
+        goal = act + " " + source
+        side_effects = "spilling"
         if 'VERB' in dix:
             vbs = list(dix['VERB'].keys())
             for vs in vbs:
@@ -525,6 +520,8 @@ def testing_finder(intent=None,source=None,destination=None,stuff=None,dix=None)
 
     elif intent == Intent.PICKUP.value:
         act = "lift"
+        goal = "pickup object"
+        side_effects = "drop object"
         if 'VERB' in dix:
             vbs = list(dix['VERB'].keys())
             for vs in vbs:
@@ -538,6 +535,7 @@ def testing_finder(intent=None,source=None,destination=None,stuff=None,dix=None)
 
     elif intent == Intent.CUTTING.value:
         act = "cut"
-        goal = "no damage"
+        goal = act + " " + cuttie
+        side_effects = "spoiling"
 
-    return act,goal
+    return act, goal, side_effects

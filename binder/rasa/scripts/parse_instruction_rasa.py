@@ -18,7 +18,7 @@ def query_rasa(instruction):
         headers = {'content-type': 'application/json'}
         response = requests.post('http://localhost:5005/model/parse', json=payload, headers=headers)
         rasa_output = response.json()
-        print("rasa_output: ", rasa_output)
+        # print("rasa_output: ", rasa_output)
 
         # payload = {"sender": "Rasa", "text": instruction}
         # headers = {'content-type': 'application/json'}
@@ -44,13 +44,17 @@ def query_rasa(instruction):
         RASA_parse['motion'] = output['motion']
         RASA_parse['action_verb'] = output['action_verb']
         RASA_parse['goal'] = output['goal']
+        RASA_parse['side_effects'] = output['side_effects']
     elif intents == Intent.CUTTING.value:
         RASA_parse['cutter'] = output['cutter']
         RASA_parse['cuttie'] = output['cuttie']
+        RASA_parse['action_verb'] = output['action_verb']
+        RASA_parse['goal'] = output['goal']
+        RASA_parse['side_effects'] = output['side_effects']
 
     return  RASA_parse
     #
     # print("Instruction Info: ", RASA_parse)
 
 #
-# query_rasa("pour coffee from bottle to bowl")
+query_rasa("pour coffee from bottle to bowl")

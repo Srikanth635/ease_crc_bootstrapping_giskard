@@ -33,7 +33,7 @@ class BootstrapInterface:
     def request(self, task_reqest: str):
         # TODO: Send the task request to RASA and get back the action core representation, and take action_verb and substance out and create a skill definition.
         result = query_rasa(task_reqest)
-        print(result)
+        print("rasa results: ", result)
         # e.g. request("Pour coffee from pitcher to the cup")
         skill_name = ""
         if result['intent'] == Intent.POURING.value:

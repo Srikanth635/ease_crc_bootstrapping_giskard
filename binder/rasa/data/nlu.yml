@@ -199,6 +199,13 @@ nlu:
     - make the jar to jerk for [1]{"entity": "amount", "role": "time"} [minute]{"entity": "amount", "role": "units"}.
 #    - add amount-time and units-secs/mins
 
+- intent: cut
+  examples: |
+    - Cut the [bread]{"entity": "cutable_obj", "role": "cuttie"} with the [knife]{"entity": "cutter_obj", "role": "cutter"}.
+    - Cut an [apple]{"entity": "cutable_obj", "role": "cuttie"} with the [knife]{"entity": "cutter_obj", "role": "cutter"}.
+    - Cut a [cucumber]{"entity": "cutable_obj", "role": "cuttie"} with the [knife]{"entity": "cutter_obj", "role": "cutter"}.
+    
+
 - lookup: stuff
   examples: |
     - rice
@@ -382,6 +389,19 @@ nlu:
     - mixer
     - saltshaker
     - scissor
+
+- lookup: cutter
+  examples: |
+    - knife
+    - blade
+    - scissor
+
+- lookup: cuttie
+  examples: |
+    - bread
+    - apple
+    - cucumber
+    - butter
 
 - synonym: spoon
   examples: |

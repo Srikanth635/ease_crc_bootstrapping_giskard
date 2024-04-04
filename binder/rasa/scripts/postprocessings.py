@@ -1,6 +1,11 @@
-from scripts import cores
+#!/usr/bin/env python3
+import sys
+import os
+from binder.rasa.scripts import cores
 from nltk.stem.porter import *
 import re
+sys.path.append(os.getcwd() + "/../")
+from binder.rasa.scripts.intents import Intent
 
 stemmer = PorterStemmer()
 
@@ -45,7 +50,7 @@ def action_verb_finder(intent,dix):
     found_common = ""
     act_verb = ""
 
-    if intent == "pouring":
+    if intent == Intent.POURING.value:
         if 'ADV' in dix:
             advs = list(dix['ADV'].keys())
             found_common = bool(set(advs) & set(adverbs))
@@ -67,7 +72,7 @@ def action_verb_finder(intent,dix):
                 else:
                     act_verb = 'pour'
 
-    elif intent == "shake":
+    elif intent == Intent.SHAKING.value:
         if 'VERB' in dix:
             vbs = list(dix['VERB'].keys())
             for vs in vbs:
@@ -80,7 +85,7 @@ def action_verb_finder(intent,dix):
 def motion_finder(intent=None,source=None,destination=None,stuff=None,action_verb=None,dix=None):
     motion = ""
     goal = ""
-    if intent == "pouring":
+    if intent == Intent.POURING.value:
         motion = 'tilt'
         if action_verb == "squeeze":
             motion = 'squeeze'
@@ -95,14 +100,14 @@ def motion_finder(intent=None,source=None,destination=None,stuff=None,action_ver
                 if stemmer.stem(destination) in plants: motion = 'sprinkle'
 
 
-    elif intent == "shake":
+    elif intent == Intent.SHAKING.value:
         motion = "shake"
         # goal = "no spillage"
 
-    elif intent == "pick_up":
+    elif intent == Intent.PICKUP.value:
         motion = "lift"
 
-    elif intent == "drop":
+    elif intent == Intent.DROPPING.value:
         motion = "drop"
 
     return motion,goal
@@ -117,7 +122,7 @@ def postprocess(rasa_out, compound_props):
         if k == "intent":
             intent = v["name"]
         elif k == "entities":
-            if intent == "pouring":
+            if intent == Intent.POURING.value:
                 ins1 = cores.Pouring()
                 # Extracting RASA outputs source,destination,stuff
                 try:
@@ -225,7 +230,7 @@ def postprocess(rasa_out, compound_props):
 
 
 
-            elif intent == "shake":
+            elif intent == Intent.SHAKING.value:
                 ins1 = cores.Shake()
                 for dic in v:
                     if dic['extractor'] == "DIETClassifier" and dic['entity'] == "obj_to_be_shaken":
@@ -282,7 +287,7 @@ def postprocess(rasa_out, compound_props):
 
                 ins1.motion = motion
 
-            elif intent == "pick_up":
+            elif intent == Intent.PICKUP.value:
                 ins1 = cores.Pickup()
 
                 for dic in v:
@@ -324,18 +329,37 @@ def postprocess(rasa_out, compound_props):
 
                 print("ToDo")
 
-            elif intent == "put_down":
+            elif intent == Intent.PUTDOWN.value:
                 print("ToDo")
 
-            elif intent == "drop":
+            elif intent == Intent.DROPPING.value:
                 print("ToDo")
+
+            elif intent == Intent.CUTTING.value:
+                ins1 = cores.Cut()
+                # Extracting RASA outputs source,destination,stuff
+                try:
+                    for dic in v:
+                        if dic['extractor'] == "DIETClassifier" and dic['entity'] == "cutable_obj":
+                            if 'role' in dic:
+                                if dic['role'] == "cuttie":
+                                    ins1.cuttie = dic['value']
+                        elif dic['extractor'] == "DIETClassifier" and dic['entity'] == "cutter_obj":
+                            if 'role' in dic:
+                                if dic['role'] == "cutter":
+                                    ins1.cutter = dic['value']
+                    act, goal = testing_finder(intent=intent)
+                    ins1.action_verb = act
+                    ins1.goal = goal
+                except:
+                    print("Problem with motion finder")
 
     # ins1.print_params()
     return ins1
 def testing_finder(intent=None,source=None,destination=None,stuff=None,dix=None):
     act = ""
     goal = ""
-    if intent == "pouring":
+    if intent == Intent.POURING.value:
         act = "pour"
         goal = "no spillage"
         if stuff in viscous:
@@ -485,7 +509,7 @@ def testing_finder(intent=None,source=None,destination=None,stuff=None,dix=None)
                 if stemmer.stem(destination) in fires: goal = 'extinguish'
                 if stemmer.stem(destination) in plants: goal = 'watering'
 
-    elif intent == "shake":
+    elif intent == Intent.SHAKING.value:
         act = "sprinkle"
         goal = "no spillage"
         if 'VERB' in dix:
@@ -499,7 +523,7 @@ def testing_finder(intent=None,source=None,destination=None,stuff=None,dix=None)
         else:
             act = "sprinkle"
 
-    elif intent == "pick_up":
+    elif intent == Intent.PICKUP.value:
         act = "lift"
         if 'VERB' in dix:
             vbs = list(dix['VERB'].keys())
@@ -511,5 +535,9 @@ def testing_finder(intent=None,source=None,destination=None,stuff=None,dix=None)
                     act = "pick up"
         else:
             act = "pick up"
+
+    elif intent == Intent.CUTTING.value:
+        act = "cut"
+        goal = "no damage"
 
     return act,goal

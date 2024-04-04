@@ -126,3 +126,23 @@ class Drop:
         }
         print(dix)
         return dix
+
+
+class Cut:
+    def __init__(self, cuttie="", cutter= "",action_verb="", motion="", goal=""):
+        self.cuttie = cuttie
+        self.cutter = cutter
+        self.action_verb = action_verb
+        self.motion = motion
+        self.goal = goal
+
+    def print_params(self):
+        dix = {
+            'cuttie':self.cuttie,
+            'cutter':self.cutter,
+            'action_verb':self.action_verb,
+            'motion': self.motion,
+            'goal': self.goal
+        }
+        print(dix)
+        return dix

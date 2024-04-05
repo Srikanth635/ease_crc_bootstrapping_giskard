@@ -202,8 +202,15 @@ nlu:
 - intent: cut
   examples: |
     - Cut the [bread]{"entity": "cutable_obj", "role": "cuttie"} with the [knife]{"entity": "cutter_obj", "role": "cutter"}.
+    - Cut the [bread]{"entity": "cutable_obj", "role": "cuttie"}.
+    - Slice the bread]{"entity": "cutable_obj", "role": "cuttie"}.
     - Cut an [apple]{"entity": "cutable_obj", "role": "cuttie"} with the [knife]{"entity": "cutter_obj", "role": "cutter"}.
+    - Cut an [apple]{"entity": "cutable_obj", "role": "cuttie"}.
+    - Quarter an [apple]{"entity": "cutable_obj", "role": "cuttie"}.
+    - Slice an [apple]{"entity": "cutable_obj", "role": "cuttie"}.
     - Cut a [cucumber]{"entity": "cutable_obj", "role": "cuttie"} with the [knife]{"entity": "cutter_obj", "role": "cutter"}.
+    - Cut a [cucumber]{"entity": "cutable_obj", "role": "cuttie"}.
+    - Slice a [cucumber]{"entity": "cutable_obj", "role": "cuttie"}.
     
 
 - lookup: stuff

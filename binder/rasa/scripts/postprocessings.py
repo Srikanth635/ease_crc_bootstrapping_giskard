@@ -114,6 +114,7 @@ def motion_finder(intent=None,source=None,destination=None,stuff=None,action_ver
 def postprocess(rasa_out, compound_props):
 
     intent = ""
+    confidence = 0.0
     ins1 = None
     act = ""
     goal = ""
@@ -121,7 +122,8 @@ def postprocess(rasa_out, compound_props):
     for k, v in rasa_out.items():
         if k == "intent":
             intent = v["name"]
-        elif k == "entities":
+            confidence = v["confidence"]
+        elif k == "entities" and confidence >= 0.99:
             if intent == Intent.POURING.value:
                 ins1 = cores.Pouring()
                 # Extracting RASA outputs source,destination,stuff

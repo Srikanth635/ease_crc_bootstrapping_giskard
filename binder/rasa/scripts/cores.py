@@ -142,6 +142,8 @@ class Cut:
     def __init__(self, cuttie="", cutter= "",action_verb="", motion="", goal="", side_effects=""):
         self.cuttie = cuttie
         self.cutter = cutter
+        self.source = cutter
+        self.destination = cuttie
         self.action_verb = action_verb
         self.motion = motion
         self.goal = goal
@@ -151,6 +153,8 @@ class Cut:
         dix = {
             'cuttie':self.cuttie,
             'cutter':self.cutter,
+            'source': self.source,
+            'destination': self.destination,
             'action_verb':self.action_verb,
             'motion': self.motion,
             'goal': self.goal,

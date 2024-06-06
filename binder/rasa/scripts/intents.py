@@ -7,4 +7,6 @@ class Intent(Enum):
     PICKUP = "pick_up"
     PUTDOWN = "put_down"
     DROPPING = "drop"
+    SERVING = "serve"
+    CLEANING = "clean"
 

@@ -211,6 +211,42 @@ nlu:
     - Cut a [cucumber]{"entity": "cutable_obj", "role": "cuttie"} with the [knife]{"entity": "cutter_obj", "role": "cutter"}.
     - Cut a [cucumber]{"entity": "cutable_obj", "role": "cuttie"}.
     - Slice a [cucumber]{"entity": "cutable_obj", "role": "cuttie"}.
+
+- intent: Serving
+  examples: |
+    - serve the [Drink]{"entity": "Drink", "role": "Item"} to [Alice]{"entity": "NaturalPerson", "role": "BeneficiaryRole"}
+    - serve the [Drink]{"entity": "Drink", "role": "Item"} to [Bob]{"entity": "NaturalPerson", "role": "BeneficiaryRole"}
+    - serve the [Drink]{"entity": "Drink", "role": "Item"} to [him]{"entity": "NaturalPerson", "role": "BeneficiaryRole"}
+    - serve the [Drink]{"entity": "Drink", "role": "Item"} to [me]{"entity": "NaturalPerson", "role": "BeneficiaryRole"}
+    - serve the [Drink]{"entity": "Drink", "role": "Item"} to [them]{"entity": "NaturalPerson", "role": "BeneficiaryRole"}
+    - serve the [Food]{"entity": "Food", "role": "Item"} to [Alice]{"entity": "NaturalPerson", "role": "BeneficiaryRole"}
+    - serve the [Food]{"entity": "Food", "role": "Item"} to [Bob]{"entity": "NaturalPerson", "role": "BeneficiaryRole"}
+    - serve the [Food]{"entity": "Food", "role": "Item"} to [her]{"entity": "NaturalPerson", "role": "BeneficiaryRole"}
+    - serve the [Food]{"entity": "Food", "role": "Item"} to [him]{"entity": "NaturalPerson", "role": "BeneficiaryRole"}
+
+
+- intent: Cleaning
+  examples: |
+    - can you clean out the [bib]{"entity": "PhysicalArtifact", "role": "Item"}?
+    - can you clean out the [cutting board]{"entity": "PhysicalArtifact", "role": "Item"}?
+    - can you clean the [coffee]{"entity": "PhysicalArtifact", "role": "Item"}?
+    - can you clean the [fridge]{"entity": "PhysicalArtifact", "role": "Item"} in the [pantry]{"entity": "PhysicalPlace", "role": "Location"}?
+    - can you clean the [jug]{"entity": "PhysicalArtifact", "role": "Item"}?
+    - can you clean the [sofa]{"entity": "PhysicalArtifact", "role": "Item"} in the [dining room]{"entity": "PhysicalPlace", "role": "Location"}?
+    - can you sweep the [bedroom]{"entity": "PhysicalPlace", "role": "Item"}?
+    - can you sweep the [living room]{"entity": "PhysicalPlace", "role": "Item"}?
+    - can you sweep the [lobby]{"entity": "PhysicalPlace", "role": "Item"}?
+    - clean the [bathroom]{"entity": "PhysicalPlace", "role": "Item"}
+    - clean the [bedroom]{"entity": "PhysicalPlace", "role": "Item"}
+    - clean the [frying pan]{"entity": "PhysicalArtifact", "role": "Item"}
+    - clean the [kitchen]{"entity": "PhysicalPlace", "role": "Item"}
+    - clean the [mug]{"entity": "PhysicalArtifact", "role": "Item"}
+    - clean the [napkin]{"entity": "PhysicalArtifact", "role": "Item"}
+    - could you wipe the [box]{"entity": "PhysicalArtifact", "role": "Item"}?
+    - would you be able to wash the [countertop]{"entity": "PhysicalArtifact", "role": "Item"}?
+    - would you be able to wash the [shampoo]{"entity": "PhysicalArtifact", "role": "Item"}?
+    - would you be able to wash the [trash can]{"entity": "PhysicalArtifact", "role": "Item"}?
+    - would you clean the [cutting board]{"entity": "PhysicalArtifact", "role": "Item"}?
     
 
 - lookup: stuff
@@ -427,91 +463,120 @@ nlu:
   examples: |
     - microwave
 
-#- intent: greet
-#  examples: |
-#    - hey
-#    - hello
-#    - hi
-#    - hello there
-#    - good morning
-#    - good evening
-#    - moin
-#    - hey there
-#    - let's go
-#    - hey dude
-#    - goodmorning
-#    - goodevening
-#    - good afternoon
-#
-#- intent: goodbye
-#  examples: |
-#    - cu
-#    - good by
-#    - cee you later
-#    - good night
-#    - bye
-#    - goodbye
-#    - have a nice day
-#    - see you around
-#    - bye bye
-#    - see you later
-#
-#- intent: affirm
-#  examples: |
-#    - yes
-#    - y
-#    - indeed
-#    - of course
-#    - that sounds good
-#    - correct
-#
-#- intent: deny
-#  examples: |
-#    - no
-#    - n
-#    - never
-#    - I don't think so
-#    - don't like that
-#    - no way
-#    - not really
-#
-#- intent: mood_great
-#  examples: |
-#    - perfect
-#    - great
-#    - amazing
-#    - feeling like a king
-#    - wonderful
-#    - I am feeling very good
-#    - I am great
-#    - I am amazing
-#    - I am going to save the world
-#    - super stoked
-#    - extremely good
-#    - so so perfect
-#    - so good
-#    - so perfect
-#
-#- intent: mood_unhappy
-#  examples: |
-#    - my day was horrible
-#    - I am sad
-#    - I don't feel very well
-#    - I am disappointed
-#    - super sad
-#    - I'm so sad
-#    - sad
-#    - very sad
-#    - unhappy
-#    - not good
-#    - not very good
-#    - extremly sad
-#    - so saad
-#    - so sad
-#
-#- intent: bot_challenge
-#  examples: |
-#    - are you a bot?
-#    - are you a human?
-#    - am I talking to a bot?
-#    - am I talking to a human?
+- lookup: Drink
+  examples: |
+    - bottle of wine
+    - cafe au lait
+    - coffee
+    - coffee with milk
+    - cup of coffee
+    - cup of coffee with milk
+    - cup of tea
+    - drink
+    - glass of milk
+    - glass of mineral water
+    - glass of water
+    - jug of milk
+    - milk
+    - mineral water
+    - something to drink
+    - tea
+
+- lookup: Food
+  examples: |
+    - bowl of soup
+    - box of cereal
+    - cereal box
+    - chili con carne
+    - chili sin carne
+    - food
+    - jar of pickles
+    - meat
+    - piece of toast
+    - sandwich
+    - some food
+    - something to eat
+    - soup
+    - steak
+    - sugar
+    - vegan food
+    - vegetables
+
+- lookup: NaturalPerson
+  examples: |
+    - Alice
+    - Bob
+    - her
+    - him
+    - me
+    - them
+
+- lookup: Number
+  examples: |
+    - 1
+    - 2
+    - 3
+    - one
+    - three
+    - two
+
+- lookup: PhysicalArtifact
+  examples: |
+    - bib
+    - bottle
+    - bottle of shampoo
+    - bowl
+    - box
+    - cabinet
+    - coffee
+    - countertop
+    - cup
+    - cutting board
+    - fork
+    - fridge
+    - frying pan
+    - glass
+    - jar
+    - jug
+    - knife
+    - lid
+    - mug
+    - napkin
+    - oven
+    - pill box
+    - plate
+    - pot
+    - refrigerator
+    - shampoo
+    - soap
+    - sofa
+    - spoon
+    - stove
+    - table
+    - towel
+    - trash can
+
+- lookup: PhysicalPlace
+  examples: |
+    - balcony
+    - bathroom
+    - bedroom
+    - dining room
+    - kitchen
+    - living room
+    - lobby
+    - pantry
+
+- lookup: PhysicalSubstance
+  examples: |
+    - coffee
+    - milk
+    - particles
+    - water
+
+- lookup: Shape
+  examples: |
+    - circles
+    - cubes
+    - slices
+    - squares

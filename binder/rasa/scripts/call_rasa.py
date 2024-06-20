@@ -11,7 +11,7 @@ def query_rasa(instruction):
     result = response.json()
     return result
 
-instruction = "pour water into bottle from the bowl"
+instruction = "clean the table"
 payload = {"sender": "Rasa", "text": instruction}
 headers = {'content-type': 'application/json'}
 # response = requests.post('http://localhost:5005/model/parse', json=payload, headers=headers)

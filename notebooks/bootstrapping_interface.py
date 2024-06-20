@@ -7,7 +7,12 @@ from binder.rasa.scripts.intents import Intent
 from binder.rasa.scripts.parse_instruction_rasa import query_rasa
 from rosprolog_client import Prolog, atom
 from pymongo import MongoClient
+import json
+import requests
+import spacy
 
+import subprocess
+import sys
 
 
 
@@ -20,6 +25,123 @@ class BootstrapInterface:
     def __init__(self, mongo_interface):
         self.prolog = Prolog()
         self.mongo_interface = mongo_interface
+        self.install_spacy_required_packages()
+        self.nluServer = "http://localhost:5005/model/parse"
+        self.spacyModel = "en_core_web_sm"
+        self.nlp = spacy.load(self.spacyModel)
+        self.placeholderWords = {"her", "him", "it", "them", "there"}
+
+
+    def install_spacy_required_packages(self):
+        packages = ['en_core_web_sm']
+        for package_name in packages:
+            if not spacy.util.is_package(package_name):
+                subprocess.check_call([sys.executable, "-m", "spacy", "download", package_name])
+
+    def parseIntent(self, text):
+        req = {"text": text}
+        r = requests.post(self.nluServer, data=bytes(json.dumps(req), "utf-8"))
+        response = json.loads(r.text)
+        retq = {"text": text, "UserIntent": response['intent']['name'], "entities": {}}
+        for k, e in enumerate(response["entities"]):
+            retq["entities"][k] = [e.get("role", "UndefinedRole"), e.get("value", "UnparsedEntity"), e.get("group", 0)]
+        return retq
+
+    def degroup(self, parses):
+        retq = []
+        for e in parses:
+            intent = e["UserIntent"]
+            entities = e["entities"]
+            groups = {0: {}}
+            for k, ed in entities.items():
+                role, value, group = ed
+                if group not in groups:
+                    groups[group] = {}
+                if role not in groups[group]:
+                    groups[group][role] = set()
+                groups[group][role].add((k, value))
+            for k in sorted(groups.keys()):
+                eds = {}
+                for r, vs in groups[k].items():
+                    for kk, v in vs:
+                        eds[kk] = [r, v, 0]
+                retq.append({"text": e["text"], "UserIntent": intent, "entities": eds})
+        return retq
+
+    def getSubtree(self, tok):
+        inText = [(tok.idx, tok)]
+        todo = list(tok.children)
+        next = []
+        while todo:
+            cr = todo.pop()
+            if ("VERB" == cr.pos_):
+                next.append(cr)
+            else:
+                inText.append((cr.idx, cr))
+                todo = todo + list(cr.children)
+        toks = [str(x[1]) for x in sorted(inText, key=lambda x: x[0])]
+        return next, ' '.join(toks)
+
+    def splitIntents(self, text):
+        doc = self.nlp(text)
+        intentUtterances = []
+        for s in doc.sents:
+            todo = [s.root]
+            while todo:
+                cr = todo.pop()
+                next, text = self.getSubtree(cr)
+                todo = todo + next
+                intentUtterances.append(text)
+        return intentUtterances
+
+    def guessRoles(self, parses, intent2Roles, role2Roles, needsGuessFn):
+        def _te2de(entities):
+            retq = {}
+            for k, v in entities.items():
+                role, value, _ = v
+                if role not in retq:
+                    retq[role] = set()
+                retq[role].add(value)
+            return retq
+
+        def _de2te(self, entities):
+            retq = {}
+            j = 0
+            for k, vs in entities.items():
+                for v in vs:
+                    retq[j] = (k, v, 0)
+                    j += 1
+            return retq
+
+        roleMap = {}
+        retq = []
+        for e in parses:
+            intent = e["UserIntent"]
+            entities = _te2de(e["entities"])
+            for role in intent2Roles[intent]:
+                if needsGuessFn(entities.get(role, set())):
+                    for guessedRole in {role}.union(role2Roles.get(role, [])):
+                        if guessedRole in roleMap:
+                            entities[role] = roleMap[guessedRole]
+                            break
+                elif 0 < len(entities.get(role, set())):
+                    roleMap[role] = entities[role]
+            retq.append({"text": e["text"], "UserIntent": intent, "entities": _de2te(entities)})
+        return retq
+
+    def semanticLabelling(self, text, intent2Roles, role2Roles, placeholderWords, missingRoleFn=None):
+        intentUtterances = self.splitIntents(text)
+        parsedIntents = self.degroup([self.parseIntent(x) for x in intentUtterances])
+        parsedIntents = self.guessRoles((parsedIntents), intent2Roles, role2Roles,
+                                   lambda x: 0 != len(x.intersection(placeholderWords)))
+        for k, e in enumerate(parsedIntents):
+            if (0 == len(e["entities"])) and (k < len(parsedIntents) - 1):
+                j = 0
+                for role, value, group in parsedIntents[k + 1]["entities"].values():
+                    if role in intent2Roles[e["UserIntent"]]:
+                        e["entities"][j] = (role, value, group)
+                        j += 1
+        return parsedIntents
 
     """
     * task_request: here the task request can be natural language sentence, we will parse this sentece and create a skill definition from it.
@@ -129,9 +251,12 @@ if __name__ == "__main__":
     bi = BootstrapInterface(mi)
 
     # 1. first set the task definition/instruction
-    documents_found, action_core = bi.request("cut cucumber with knife")
-    print("skills found results: ", documents_found)
-    print("rasa output results: ", action_core)
+    intents = bi.splitIntents("cut the cucumber with knife and serve it to Alice afterwards clean the table")
+    print("intents:", intents)
+    for intent in intents:
+        documents_found, action_core = bi.request(intent)
+        # print("skills found results: ", documents_found)
+        print("rasa output results: ", action_core)
 
     # documents_found[0]['test'] = 'test'
     # # 2. Prompt user to change the rasa output if needed

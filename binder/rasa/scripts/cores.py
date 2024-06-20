@@ -162,3 +162,25 @@ class Cut:
         }
         # print(dix)
         return dix
+
+class Serve:
+    def __init__(self, obj_to_serve=""):
+        self.obj_to_serve = obj_to_serve
+
+    def print_params(self):
+        dix = {
+            'obj_to_serve':self.obj_to_serve
+        }
+        # print(dix)
+        return dix
+
+class Clean:
+    def __init__(self, destination=""):
+        self.destination = destination
+
+    def print_params(self):
+        dix = {
+            'destination':self.destination
+        }
+        # print(dix)
+        return dix

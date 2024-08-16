@@ -165,10 +165,10 @@ COPY --chown=${NB_USER}:users prolog /prolog
 # # Build catkin workspace
 USER ${NB_USER}
 WORKDIR ${KNOWROB_WS}
-RUN source ${ROS_PATH}/setup.bash && catkin_make
+#RUN source ${ROS_PATH}/setup.bash && catkin_make
 
 # # Source knowrob workspace on a new bash shell
-RUN echo "source ${KNOWROB_WS}/devel/setup.bash" >> ${HOME}/.bashrc
+#RUN echo "source ${KNOWROB_WS}/devel/setup.bash" >> ${HOME}/.bashrc
 
 # Install jupyter knowrob kernel
 USER ${NB_USER}
